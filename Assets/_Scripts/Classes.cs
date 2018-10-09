@@ -33,6 +33,18 @@ public class Base {
 	}
 }
 
+public class Character {
+	public bool protagonist = false;
+	public string first_name = "name";
+	public string second_name = "surname";
+	public int age = 20;
+
+	public int might = 1;
+	public int dexterity = 1;
+	public int charisma = 1;
+	public int intelligence = 1;
+}
+
 public class City {
 
 	public string name;

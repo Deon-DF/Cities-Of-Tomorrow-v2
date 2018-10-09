@@ -11,11 +11,17 @@ public class Game : MonoBehaviour {
 	public Base player_base;
 	public Controls controls;
 	public City city;
+	
+	public List<Character> party;
+	public List<Character> safehouse;
 
 	void initialize() {
 		player_base = new Base ();
 		city = new City ();
 		controls = new Controls ();
+		
+		party = new List<Character>();
+		safehouse = new List<Character>();
 
 		current_phase = Enum_Phase.phase_Event;
 		current_menu = Enum_Menu.none;
@@ -23,6 +29,24 @@ public class Game : MonoBehaviour {
 		#region Load user preferences
 		PlayerPrefs.id.load_player_settings ();
 		GUI.id.update_settings_buttons_on_start ();
+		#endregion
+			
+	}
+	
+	void generate_player_data () {
+		#region Create player character
+		Character protagonist = new Character();
+		protagonist.protagonist = true;
+		protagonist.first_name = "Deon";
+		protagonist.second_name = "Denton";
+		protagonist.age = 32;
+		
+		protagonist.might = 1;
+		protagonist.dexterity = 1;
+		protagonist.charisma = 1;
+		protagonist.intelligence = 1;
+		
+		party.Add(protagonist);
 		#endregion
 	}
 	
@@ -36,6 +60,8 @@ public class Game : MonoBehaviour {
 
 	void Start () {
 		initialize ();		
+		
+		generate_player_data();
 	}
 
 	void Update () {
