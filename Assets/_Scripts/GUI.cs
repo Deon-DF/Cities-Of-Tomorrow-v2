@@ -46,22 +46,32 @@ public class GUI : MonoBehaviour {
 	}
 
 	public void refresh_gui_overlays() {
-		if (Game.id.current_phase == Enum_Phase.phase_Event) {
+		if (Game.id.current_menu == Enum_Menu.main) {
+			GUI.id.menu.main_menu.gameObject.SetActive(true);
+			canvas_Event.gameObject.SetActive (false);
+			canvas_Opportunity.gameObject.SetActive (false);
+			canvas_Feedback.gameObject.SetActive (false);
+			canvas_Deployment.gameObject.SetActive (false);
+		} else 	if (Game.id.current_phase == Enum_Phase.phase_Event) {
+			GUI.id.menu.main_menu.gameObject.SetActive(false);
 			canvas_Event.gameObject.SetActive (true);
 			canvas_Opportunity.gameObject.SetActive (false);
 			canvas_Feedback.gameObject.SetActive (false);
 			canvas_Deployment.gameObject.SetActive (false);
 		} else if (Game.id.current_phase == Enum_Phase.phase_Opportunity) {
+			GUI.id.menu.main_menu.gameObject.SetActive(false);
 			canvas_Event.gameObject.SetActive (false);
 			canvas_Opportunity.gameObject.SetActive (true);
 			canvas_Feedback.gameObject.SetActive (false);
 			canvas_Deployment.gameObject.SetActive (false);
 		} else if (Game.id.current_phase == Enum_Phase.phase_Feedback) {
+			GUI.id.menu.main_menu.gameObject.SetActive(false);
 			canvas_Event.gameObject.SetActive (false);
 			canvas_Opportunity.gameObject.SetActive (false);
 			canvas_Feedback.gameObject.SetActive (true);
 			canvas_Deployment.gameObject.SetActive (false);
 		} else if (Game.id.current_phase == Enum_Phase.phase_Deployment) {
+			GUI.id.menu.main_menu.gameObject.SetActive(false);
 			canvas_Event.gameObject.SetActive (false);
 			canvas_Opportunity.gameObject.SetActive (false);
 			canvas_Feedback.gameObject.SetActive (false);
@@ -71,7 +81,20 @@ public class GUI : MonoBehaviour {
 
 	#endregion
 
-	#region escape_menu
+	#region main / escape_menu
+
+	public void button_main_menu_play() {
+		menu.main_menu.gameObject.SetActive (false);
+		Game.id.current_menu = Enum_Menu.none;
+		Game.id.start_game();
+
+	}
+
+	public void button_main_menu_settings() {
+		menu.main_menu.gameObject.SetActive (false);
+		menu.settings_menu.gameObject.SetActive (true);
+		Game.id.current_menu = Enum_Menu.settings;
+	}
 
 	public void button_escape_menu_resume() {
 		menu.escape_menu.gameObject.SetActive (false);
@@ -127,11 +150,17 @@ public class GUI : MonoBehaviour {
 		}
 	}
 
-	public void button_settings_menu_close() {
-		menu.escape_menu.gameObject.SetActive (true);
+	public void button_settings_menu_close ()
+	{
 		menu.settings_menu.gameObject.SetActive (false);
-		Game.id.current_menu = Enum_Menu.esc;
 		PlayerPrefs.id.save_player_settings ();
+		if (Game.id.game_started) {
+			menu.escape_menu.gameObject.SetActive (true);
+			Game.id.current_menu = Enum_Menu.esc;
+		} else {
+			menu.main_menu.gameObject.SetActive (true);
+			Game.id.current_menu = Enum_Menu.main;
+		}
 	}
 
 	#endregion

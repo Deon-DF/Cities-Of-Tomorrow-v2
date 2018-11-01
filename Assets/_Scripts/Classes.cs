@@ -227,5 +227,6 @@ public class Choice {
 
 public enum Enum_Phase {phase_Event, phase_Opportunity, phase_Feedback, phase_Deployment}
 
-public enum Enum_Menu {none, esc, settings}
+public enum Enum_Menu {none, main, esc, settings}
+public enum Enum_Level { level1, level2, level3, level4, level5}
 

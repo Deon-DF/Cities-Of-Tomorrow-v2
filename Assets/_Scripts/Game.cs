@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Game : MonoBehaviour {
 
+	public bool game_started = false;
 	public static Game id;
 	public Enum_Phase current_phase = Enum_Phase.phase_Event;
 	public Enum_Menu current_menu = Enum_Menu.none;
+	public Enum_Level current_level = Enum_Level.level3;
 
 	public Base player_base;
 	public Controls controls;
@@ -16,6 +18,18 @@ public class Game : MonoBehaviour {
 	public List<Character> safehouse;
 
 	void initialize() {
+		current_menu = Enum_Menu.main;
+
+		#region Load user preferences
+		PlayerPrefs.id.load_player_settings ();
+		GUI.id.update_settings_buttons_on_start ();
+		#endregion
+
+		GUI.id.refresh_gui_overlays();
+			
+	}
+	
+	public void start_game () {
 		player_base = new Base ();
 		city = new City ();
 		controls = new Controls ();
@@ -24,16 +38,7 @@ public class Game : MonoBehaviour {
 		safehouse = new List<Character>();
 
 		current_phase = Enum_Phase.phase_Event;
-		current_menu = Enum_Menu.none;
 
-		#region Load user preferences
-		PlayerPrefs.id.load_player_settings ();
-		GUI.id.update_settings_buttons_on_start ();
-		#endregion
-			
-	}
-	
-	void generate_player_data () {
 		#region Create player character
 		Character protagonist = new Character();
 		protagonist.protagonist = true;
@@ -47,6 +52,7 @@ public class Game : MonoBehaviour {
 		protagonist.intelligence = 1;
 		
 		party.Add(protagonist);
+		game_started = true;
 		#endregion
 	}
 	
@@ -59,9 +65,7 @@ public class Game : MonoBehaviour {
 	}
 
 	void Start () {
-		initialize ();		
-		
-		generate_player_data();
+		initialize ();
 	}
 
 	void Update () {
