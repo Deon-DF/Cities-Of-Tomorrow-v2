@@ -26,7 +26,7 @@ public class FileManager {
 
 	public static void deleteFile (string file_path) {
 		if (System.IO.File.Exists (file_path)) {
-			File.Delete (file_path);
+			System.IO.File.Delete (file_path);
 		} else {
 			Debug.LogError ("File " + file_path + " not found!");
 		}
@@ -34,7 +34,7 @@ public class FileManager {
 
 	public static void createPrefsFile(string file_path) {
 		if (!System.IO.File.Exists (file_path)) {
-			using (StreamWriter sw = File.CreateText(file_path))
+			using (StreamWriter sw = System.IO.File.CreateText(file_path))
 			{
 				sw.WriteLine ("[ General ]");
 				sw.WriteLine ("");

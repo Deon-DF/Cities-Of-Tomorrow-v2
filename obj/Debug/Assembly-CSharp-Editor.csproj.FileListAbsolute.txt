@@ -1,0 +1,2 @@
+D:\Work\Github\Cities-Of-Tomorrow\obj\Debug\Assembly-CSharp-Editor.csprojAssemblyReference.cache
+D:\Work\Github\Cities-Of-Tomorrow\obj\Debug\Assembly-CSharp-Editor.csproj.CoreCompileInputs.cache

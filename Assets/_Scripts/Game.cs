@@ -22,17 +22,17 @@ public class Game : MonoBehaviour {
 
 		#region Load user preferences
 		PlayerPrefs.id.load_player_settings ();
-		GUI.id.update_settings_buttons_on_start ();
-		#endregion
+		MyGUI.id.update_settings_buttons_on_start ();
+        #endregion
 
-		GUI.id.refresh_gui_overlays();
+        controls = new Controls();
+        MyGUI.id.refresh_gui_overlays();
 			
 	}
 	
 	public void start_game () {
 		player_base = new Base ();
 		city = new City ();
-		controls = new Controls ();
 		
 		party = new List<Character>();
 		safehouse = new List<Character>();
